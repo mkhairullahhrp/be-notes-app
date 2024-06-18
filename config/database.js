@@ -1,5 +1,5 @@
-const mysql = require("mysql2");
-require("dotenv").config();
+import mysql from "mysql2";
+import "dotenv/config";
 
 // buat konfigurasi koneksi
 const koneksi = mysql.createConnection({
@@ -16,4 +16,4 @@ koneksi.connect((err) => {
   console.log("MySQL Connected...");
 });
 
-module.exports = koneksi;
+export default koneksi;

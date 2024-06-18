@@ -1,9 +1,9 @@
-const koneksi = require("../config/database");
-const { responseData, responseMessage } = require("../utils/response-handler");
-const ErrorResponse = require("../utils/errorResponse");
+import koneksi from "../config/database.js";
+import { responseData, responseMessage } from "../utils/response-handler.js";
+import ErrorResponse from "../utils/errorResponse.js";
 
 // insert notes
-exports.insertNotes = (response, statement, data, next) => {
+const insertNotes = (response, statement, data, next) => {
   // jalankan query
   koneksi.query(statement, data, (err, rows, field) => {
     // error handling
@@ -17,7 +17,7 @@ exports.insertNotes = (response, statement, data, next) => {
 };
 
 // get data notes
-exports.getNotes = (response, statement, next) => {
+const getNotes = (response, statement, next) => {
   // jalankan query
   koneksi.query(statement, (err, rows, field) => {
     // error handling
@@ -31,7 +31,7 @@ exports.getNotes = (response, statement, next) => {
 };
 
 // update data notes
-exports.updateNotes = (response, searchStatement, updateStatement, id, data, next) => {
+const updateNotes = (response, searchStatement, updateStatement, id, data, next) => {
   // jalankan query untuk melakukan pencarian data
   koneksi.query(searchStatement, id, (err, rows, field) => {
     // error handling
@@ -58,7 +58,7 @@ exports.updateNotes = (response, searchStatement, updateStatement, id, data, nex
 };
 
 // delete notes
-exports.deleteNotes = (response, searchStatement, deleteStatement, id, next) => {
+const deleteNotes = (response, searchStatement, deleteStatement, id, next) => {
   // jalankan query untuk melakukan pencarian data
   koneksi.query(searchStatement, id, (err, rows, field) => {
     // error handling
@@ -83,3 +83,5 @@ exports.deleteNotes = (response, searchStatement, deleteStatement, id, next) => 
     }
   });
 };
+
+export { insertNotes, getNotes, updateNotes, deleteNotes };

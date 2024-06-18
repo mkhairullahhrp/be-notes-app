@@ -1,13 +1,13 @@
-const { insertNotes, getNotes, updateNotes, deleteNotes } = require("../models/notes-model");
+import { insertNotes, getNotes, updateNotes, deleteNotes } from "../models/notes-model.js";
 
 // validasi (kalo data yang diisi gaboleh kosong, kalo kosong error)
-const { validateNotes } = require("../utils/validation");
+import { validateNotes } from "../utils/validation.js";
 
 // untuk nampung error message dan status codenya
-const ErrorResponse = require("../utils/errorResponse");
+import ErrorResponse from "../utils/errorResponse.js";
 
 // create notes
-exports.createData = (req, res, next) => {
+const createData = (req, res, next) => {
   // buat variabel penampung data dan query sql
   const data = { ...req.body };
   const querySql = "INSERT INTO notes SET ?";
@@ -25,7 +25,7 @@ exports.createData = (req, res, next) => {
 };
 
 // show notess
-exports.readData = (req, res, next) => {
+const readData = (req, res, next) => {
   // buat query sql
   const querySql = "SELECT * FROM notes";
 
@@ -34,7 +34,7 @@ exports.readData = (req, res, next) => {
 };
 
 // update notes
-exports.updateData = (req, res, next) => {
+const updateData = (req, res, next) => {
   // buat variabel penampung data dan query sql
   const data = { ...req.body };
   const querySearch = "SELECT * FROM notes WHERE id = ?";
@@ -45,7 +45,7 @@ exports.updateData = (req, res, next) => {
 };
 
 // delete notes
-exports.deleteData = (req, res, next) => {
+const deleteData = (req, res, next) => {
   // buat query sql untuk mencari data dan hapus
   const querySearch = "SELECT * FROM notes WHERE id = ?";
   const queryDelete = "DELETE FROM notes WHERE id = ?";
@@ -53,3 +53,5 @@ exports.deleteData = (req, res, next) => {
   // masukkan ke dalam model
   deleteNotes(res, querySearch, queryDelete, req.params.id, next);
 };
+
+export { readData, createData, updateData, deleteData };

@@ -1,18 +1,19 @@
-const express = require("express");
-const bodyParser = require("body-parser");
-const notesRouter = require("./routes/notes-router");
-const errorHandler = require("./middleware/error");
-require("dotenv").config();
+// const express = require("express");
+// const bodyParser = require("body-parser");
+// const notesRouter = require("./routes/notes-router");
+// const errorHandler = require("./middleware/error");
+// require("dotenv").config();
 
-// import express from "express";
-// import dotenv from "dotenv";
-// import cors from "cors";
-// import bodyParser from "body-parser";
-// import notesRouter from "./routes/notes-router.js";
-// import errorHandler from "./middleware/error.js";
+import express from "express";
+import bodyParser from "body-parser";
+import notesRouter from "./routes/notes-router.js";
+import errorHandler from "./middleware/error.js";
+import dotenv from "dotenv";
+import cors from "cors";
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+dotenv.config();
+// const PORT = process.env.PORT || 5000;
 
 // set body parser
 app.use(bodyParser.json());
@@ -25,4 +26,6 @@ app.use("/api/notes", notesRouter);
 app.use(errorHandler);
 
 // buat server nya
-app.listen(PORT, () => console.log(`Server running at port: ${PORT}`));
+app.listen(process.env.APP_PORT, () =>
+  console.log(`Server running at http://localhost:${process.env.APP_PORT}`)
+);

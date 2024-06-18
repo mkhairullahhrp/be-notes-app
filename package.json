@@ -2,6 +2,7 @@
   "name": "crud-express-mysql",
   "version": "1.0.0",
   "description": "belajar crud express-mysql",
+  "type": "module",
   "scripts": {
     "start": "node app",
     "dev": "nodemon app"

@@ -1,10 +1,10 @@
-const { createData, readData, updateData, deleteData } = require("../controllers/notes-controller");
+import { createData, readData, updateData, deleteData } from "../controllers/notes-controller.js";
 
-const express = require("express");
+import express from "express";
 const router = express.Router();
 
 router.route("/").post(createData).get(readData);
 
-router.route("/:id").put(updateData).delete(deleteData);
+router.route("/:id").get(readData).put(updateData).delete(deleteData);
 
-module.exports = router;
+export default router;

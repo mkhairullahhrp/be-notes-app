@@ -17,7 +17,6 @@ const validateNotes = (data) => {
       presence: {
         allowEmpty: false,
       },
-      url: true,
     },
     note: {
       presence: {

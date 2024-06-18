@@ -3,7 +3,7 @@ import { responseData, responseMessage } from "../utils/response-handler.js";
 import ErrorResponse from "../utils/errorResponse.js";
 
 // insert notes
-const insertNotes = (response, statement, data, next) => {
+export const insertNotes = (response, statement, data, next) => {
   // jalankan query
   koneksi.query(statement, data, (err, rows, field) => {
     // error handling
@@ -17,7 +17,7 @@ const insertNotes = (response, statement, data, next) => {
 };
 
 // get data notes
-const getNotes = (response, statement, next) => {
+export const getNotes = (response, statement, next) => {
   // jalankan query
   koneksi.query(statement, (err, rows, field) => {
     // error handling
@@ -30,8 +30,26 @@ const getNotes = (response, statement, next) => {
   });
 };
 
+// get data notes by id
+export const getNotesById = (response, querySql, id, next) => {
+  koneksi.query(querySql, [id], (err, rows, fields) => {
+    // error handling
+    if (err) {
+      return next(new ErrorResponse(err.message, 500));
+    }
+
+    // jika tidak ada catatan dengan id tersebut
+    if (rows.length === 0) {
+      return next(new ErrorResponse(`Note with id ${id} not found`, 404));
+    }
+
+    // jika request berhasil
+    responseData(response, 200, rows[0]);
+  });
+};
+
 // update data notes
-const updateNotes = (response, searchStatement, updateStatement, id, data, next) => {
+export const updateNotes = (response, searchStatement, updateStatement, id, data, next) => {
   // jalankan query untuk melakukan pencarian data
   koneksi.query(searchStatement, id, (err, rows, field) => {
     // error handling
@@ -58,7 +76,7 @@ const updateNotes = (response, searchStatement, updateStatement, id, data, next)
 };
 
 // delete notes
-const deleteNotes = (response, searchStatement, deleteStatement, id, next) => {
+export const deleteNotes = (response, searchStatement, deleteStatement, id, next) => {
   // jalankan query untuk melakukan pencarian data
   koneksi.query(searchStatement, id, (err, rows, field) => {
     // error handling
@@ -84,4 +102,4 @@ const deleteNotes = (response, searchStatement, deleteStatement, id, next) => {
   });
 };
 
-export { insertNotes, getNotes, updateNotes, deleteNotes };
+// export { insertNotes, getNotes, updateNotes, deleteNotes };

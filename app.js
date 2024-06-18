@@ -1,9 +1,3 @@
-// const express = require("express");
-// const bodyParser = require("body-parser");
-// const notesRouter = require("./routes/notes-router");
-// const errorHandler = require("./middleware/error");
-// require("dotenv").config();
-
 import express from "express";
 import bodyParser from "body-parser";
 import notesRouter from "./routes/notes-router.js";
@@ -13,7 +7,6 @@ import cors from "cors";
 
 const app = express();
 dotenv.config();
-// const PORT = process.env.PORT || 5000;
 
 // set body parser
 app.use(bodyParser.json());

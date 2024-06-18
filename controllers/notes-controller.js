@@ -1,4 +1,10 @@
-import { insertNotes, getNotes, updateNotes, deleteNotes } from "../models/notes-model.js";
+import {
+  insertNotes,
+  getNotes,
+  updateNotes,
+  deleteNotes,
+  getNotesById,
+} from "../models/notes-model.js";
 
 // validasi (kalo data yang diisi gaboleh kosong, kalo kosong error)
 import { validateNotes } from "../utils/validation.js";
@@ -7,7 +13,7 @@ import { validateNotes } from "../utils/validation.js";
 import ErrorResponse from "../utils/errorResponse.js";
 
 // create notes
-const createData = (req, res, next) => {
+export const createData = (req, res, next) => {
   // buat variabel penampung data dan query sql
   const data = { ...req.body };
   const querySql = "INSERT INTO notes SET ?";
@@ -25,7 +31,7 @@ const createData = (req, res, next) => {
 };
 
 // show notess
-const readData = (req, res, next) => {
+export const readData = (req, res, next) => {
   // buat query sql
   const querySql = "SELECT * FROM notes";
 
@@ -33,8 +39,17 @@ const readData = (req, res, next) => {
   getNotes(res, querySql, next);
 };
 
+// show data by id
+export const readDataById = (req, res, next) => {
+  const id = req.params.id;
+  const querySql = "SELECT * FROM notes WHERE id = ?";
+
+  // masukkan ke dalam model
+  getNotesById(res, querySql, id, next);
+};
+
 // update notes
-const updateData = (req, res, next) => {
+export const updateData = (req, res, next) => {
   // buat variabel penampung data dan query sql
   const data = { ...req.body };
   const querySearch = "SELECT * FROM notes WHERE id = ?";
@@ -45,7 +60,7 @@ const updateData = (req, res, next) => {
 };
 
 // delete notes
-const deleteData = (req, res, next) => {
+export const deleteData = (req, res, next) => {
   // buat query sql untuk mencari data dan hapus
   const querySearch = "SELECT * FROM notes WHERE id = ?";
   const queryDelete = "DELETE FROM notes WHERE id = ?";
@@ -53,5 +68,3 @@ const deleteData = (req, res, next) => {
   // masukkan ke dalam model
   deleteNotes(res, querySearch, queryDelete, req.params.id, next);
 };
-
-export { readData, createData, updateData, deleteData };
